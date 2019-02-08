@@ -1,6 +1,6 @@
 # @depack/bundle
 
-[![npm version](https://badge.fury.io/js/@depack/bundle.svg)](https://npmjs.org/package/@depack/bundle)
+[![npm version](https://badge.fury.io/js/%40depack%2Fbundle.svg)](https://npmjs.org/package/@depack/bundle)
 
 `@depack/bundle` is The Source Code For The Bundle Logic To Prepare Temp Files.
 
@@ -12,7 +12,7 @@ yarn add -E @depack/bundle
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`bundle(arg1: string, arg2?: boolean)`](#mynewpackagearg1-stringarg2-boolean-void)
+- [`bundle(arg1: string, arg2?: boolean)`](#bundlearg1-stringarg2-boolean-void)
   * [`Config`](#type-config)
 - [Copyright](#copyright)
 
@@ -51,15 +51,33 @@ import bundle from '@depack/bundle'
 })()
 ```
 ```
-example
+
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
 ## Copyright
 
-(c) [Art Deco][1] 2019
-
-[1]: https://artd.eco/depack
+<table>
+  <tr>
+    <th>
+      <a href="https://artd.eco">
+        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
+      </a>
+    </th>
+    <th>
+      © <a href="https://artd.eco">Art Deco</a> for <a href="https://artd.eco/depack">Depack</a>
+      2019
+    </th>
+    <th>
+      <a href="https://www.technation.sucks" title="Tech Nation Visa">
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+      </a>
+    </th>
+    <th>
+      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
+    </th>
+  </tr>
+</table>
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>
