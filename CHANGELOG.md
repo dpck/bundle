@@ -1,5 +1,9 @@
 ## 8 February 2019
 
+### 1.0.1
+
+- [package] Add build.
+
 ### 1.0.0
 
 - Create `@depack/bundle` with [`mnp`][https://mnpjs.org]
