@@ -8,15 +8,6 @@ const T = {
   'is a function'() {
     equal(typeof bundle, 'function')
   },
-  async 'calls package without error'() {
-    await bundle()
-  },
-  async 'gets a link to the fixture'({ FIXTURE }) {
-    const res = await bundle({
-      text: FIXTURE,
-    })
-    ok(res, FIXTURE)
-  },
 }
 
 export default T

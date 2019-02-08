@@ -1,26 +1,28 @@
-import { debuglog } from 'util'
-
-const LOG = debuglog('@depack/bundle')
+import { processFile } from './lib'
+import { join, relative } from 'path'
 
 /**
- * The Source Code For The Bundle Logic To Prepare Temp Files.
- * @param {Config} [config] Options for the program.
- * @param {boolean} [config.shouldRun=true] A boolean option. Default `true`.
- * @param {string} config.text A text to return.
+ * Generates a temp directory for the given entry file and transpiles JSX files. Returns the list of all dependencies including in the `node_modules`.
+ * @param {string} entry The path to the entry file.
+ * @param {{ tempDir: string, preact: boolean }} [config] The configuration.
  */
-export default async function bundle(config = {}) {
+const generateTemp = async (entry, config = {}) => {
   const {
-    shouldRun = true,
-    text,
+    tempDir = 'depack-temp',
+    preact,
   } = config
-  if (!shouldRun) return
-  LOG('@depack/bundle called with %s', text)
-  return text
+  const cache = {
+    cachedFiles: {
+      [relative('', entry)]: 1,
+    },
+    cachedNodeModules: {},
+  }
+  await processFile(entry, {
+    tempDir, preact,
+  }, cache)
+  const tempFiles = Object.keys(cache.cachedFiles)
+    .map(f => join(tempDir, f))
+  return [...tempFiles, ...Object.keys(cache.cachedNodeModules)]
 }
 
-/* documentary types/index.xml */
-/**
- * @typedef {Object} Config Options for the program.
- * @prop {boolean} [shouldRun=true] A boolean option. Default `true`.
- * @prop {string} text A text to return.
- */
+export default generateTemp
