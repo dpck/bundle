@@ -57,6 +57,18 @@
   resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.0.1.tgz#7e4d3bb1b0ac62173b00e4bba7091f7847cdb088"
   integrity sha512-ZSavD8NpWA1/1SRCKrx8LZ5WfbKS1kRUIFOERJvR1jXqCAcbM3xWSP2VdCKEh4lCwWghSWQkotbpK6n+o1Y/xQ==
 
+"@depack/detect@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@depack/detect/-/detect-1.0.0.tgz#68b23604687e96eacceffd8524bd1b6a2989ea48"
+  integrity sha512-UK29UN4KZEgbYCFLy918oXqFHB71qD43aTK8v6gTLSFDkEKNEe1ITE7/4uAEV9VvNfx5/dZb59zTxWUnak+Oqg==
+  dependencies:
+    mismatch "1.0.3"
+
+"@idio/preact-fixture@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@idio/preact-fixture/-/preact-fixture-1.0.0.tgz#3070f49f32641ccd08db8d5241374d2111f206f4"
+  integrity sha512-/QNdKiwBW3R9lkYjwSKrbsm1SHL99StYtuo0aR0ZDRrhzNDPvab3wB1u5Lye/Bix4EezRQ8ckgv1n/kukgX8FA==
+
 "@wrote/clone@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@wrote/clone/-/clone-1.1.0.tgz#6f5d05b320c3294d6879f65a3950475249cdfcab"

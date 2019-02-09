@@ -2,8 +2,7 @@ import { Replaceable } from 'restream'
 import { relative, dirname } from 'path'
 import resolveDependency from 'resolve-dependency'
 import findPackageJson from 'fpj'
-
-const checkIfLib = modName => /^[./]/.test(modName)
+import { checkIfLib } from './lib'
 
 export default class BundleTransform extends Replaceable {
   /**
