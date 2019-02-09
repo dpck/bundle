@@ -1,10 +1,10 @@
 <types>
   <type name="Config" desc="Options for the program.">
-    <prop boolean name="shouldRun" default="true">
-      A boolean option.
+    <prop string name="tempDir" default="depack-temp">
+      The directory in which to place temp files.
     </prop>
-    <prop string name="text">
-      A text to return.
+    <prop boolean name="preact" default="false">
+      Whether to add `import { h } from 'preact'` automatically at the top of each JSX file.
     </prop>
   </type>
 </types>
