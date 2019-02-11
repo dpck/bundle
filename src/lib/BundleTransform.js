@@ -11,10 +11,15 @@ export default class BundleTransform extends Replaceable {
    */
   constructor(path, to) {
     super()
+    const replacement = this.replacement.bind(this)
     this.rules = [
       {
         re: /^( *import(?:\s+[^\s,]+\s*,?)?(?:\s*{(?:[^}]+)})?\s+from\s+)['"](.+)['"]/gm,
-        replacement: this.replacement.bind(this),
+        replacement,
+      },
+      {
+        re: /^( *export\s+{[^}]+?}\s+from\s+)['"](.+?)['"]/gm,
+        replacement,
       },
     ]
     this._nodeModules = []

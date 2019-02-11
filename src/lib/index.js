@@ -22,13 +22,7 @@ export const processFile = async (entry, config, cache) => {
   const T = preact && isJSX ? addPreact(source) : source
   bt.end(T)
   const transformed = await collect(bt)
-  const transpiled = isJSX ? transpileJSX(transformed, {
-    quoteProps: 'dom',
-    warn(message) {
-      console.warn(c(message, 'yellow'))
-      console.log(entry)
-    },
-  }): transformed
+  const transpiled = isJSX ? transpile(source, entry): transformed
   const tto = join(tempDir, entry)
   await ensurePath(tto)
 
@@ -58,6 +52,16 @@ export const processFile = async (entry, config, cache) => {
 const addPreact = (source) => {
   return `import { h } from 'preact'
 ${source}`
+}
+
+const transpile = async (source, entry) => {
+  return await transpileJSX(source, {
+    quoteProps: 'dom',
+    warn(message) {
+      console.warn(c(message, 'yellow'))
+      console.log(entry)
+    },
+  })
 }
 
 /**
@@ -97,20 +101,14 @@ const processNodeModule = async (entry, config, cache) => {
     } catch (err) {/**/}
 
     if (dep == js && !isDepack) {
-      return p
+      return jsPath
     }
     // process jsx exported by node_module
     if (jsContent && !isDepack)
       throw new Error(`Cannot compile ${dep} over ${jsPath}.`)
     const p = join(dir, dep)
     const depSource = await read(`${p}x`)
-    const t = await transpileJSX(depSource, {
-      quoteProps: 'dom',
-      warn(message) {
-        console.warn(c(message, 'yellow'))
-        console.log(entry)
-      },
-    })
+    const t = await transpile(depSource, entry)
     console.log('Compiled %s', c(`${jsPath}x`, 'green'))
     const tt = preact ? addPreact(t) : t
     await write(jsPath, `${tt} // _depack-jsx-bundled`)
