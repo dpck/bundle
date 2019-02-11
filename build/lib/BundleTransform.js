@@ -2,8 +2,7 @@ const { Replaceable } = require('restream');
 const { relative, dirname } = require('path');
 let resolveDependency = require('resolve-dependency'); if (resolveDependency && resolveDependency.__esModule) resolveDependency = resolveDependency.default;
 let findPackageJson = require('fpj'); if (findPackageJson && findPackageJson.__esModule) findPackageJson = findPackageJson.default;
-
-const checkIfLib = modName => /^[./]/.test(modName)
+const { checkIfLib } = require('./lib');
 
                class BundleTransform extends Replaceable {
   /**
@@ -12,10 +11,15 @@ const checkIfLib = modName => /^[./]/.test(modName)
    */
   constructor(path, to) {
     super()
+    const replacement = this.replacement.bind(this)
     this.rules = [
       {
         re: /^( *import(?:\s+[^\s,]+\s*,?)?(?:\s*{(?:[^}]+)})?\s+from\s+)['"](.+)['"]/gm,
-        replacement: this.replacement.bind(this),
+        replacement,
+      },
+      {
+        re: /^( *export\s+{[^}]+?}\s+from\s+)['"](.+?)['"]/gm,
+        replacement,
       },
     ]
     this._nodeModules = []

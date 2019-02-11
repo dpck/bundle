@@ -4,7 +4,9 @@ const { join, relative } = require('path');
 /**
  * Generates a temp directory for the given entry file and transpiles JSX files. Returns the list of all dependencies including in the `node_modules`.
  * @param {string} entry The path to the entry file.
- * @param {{ tempDir: string, preact: boolean }} [config] The configuration.
+ * @param {Config} [config] Options for the program.
+ * @param {string} [config.tempDir="depack-temp"] The directory in which to place temp files. Default `depack-temp`.
+ * @param {boolean} [config.preact=false] Whether to add `import { h } from 'preact'` automatically at the top of each JSX file. Default `false`.
  */
 const generateTemp = async (entry, config = {}) => {
   const {
@@ -26,3 +28,10 @@ const generateTemp = async (entry, config = {}) => {
 }
 
 module.exports=generateTemp
+
+/* documentary types/index.xml */
+/**
+ * @typedef {Object} Config Options for the program.
+ * @prop {string} [tempDir="depack-temp"] The directory in which to place temp files. Default `depack-temp`.
+ * @prop {boolean} [preact=false] Whether to add `import { h } from 'preact'` automatically at the top of each JSX file. Default `false`.
+ */

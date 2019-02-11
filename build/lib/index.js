@@ -3,6 +3,7 @@ const { read, write, ensurePath } = require('@wrote/wrote');
 let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esModule) transpileJSX = transpileJSX.default;
 const { collect } = require('catchment');
 const { c } = require('erte');
+let staticAnalysis = require('static-analysis'); if (staticAnalysis && staticAnalysis.__esModule) staticAnalysis = staticAnalysis.default;
 const BundleTransform = require('./BundleTransform');
 
        const processFile = async (entry, config, cache) => {
@@ -15,17 +16,10 @@ const BundleTransform = require('./BundleTransform');
   const to = join(tempDir, dir)
   const bt = new BundleTransform(entry, to)
 
-  const T = preact && isJSX ? `import { h } from 'preact'
-${source}` : source
+  const T = preact && isJSX ? addPreact(source) : source
   bt.end(T)
   const transformed = await collect(bt)
-  const transpiled = isJSX ? transpileJSX(transformed, {
-    quoteProps: 'dom',
-    warn(message) {
-      console.warn(c(message, 'yellow'))
-      console.log(entry)
-    },
-  }): transformed
+  const transpiled = isJSX ? await transpile(transformed, entry): transformed
   const tto = join(tempDir, entry)
   await ensurePath(tto)
 
@@ -36,16 +30,39 @@ ${source}` : source
     .map(d => join(dir, d))
     .filter(d => !(d in cachedFiles))
   const nodeModules = bt.nodeModules
-    .map(d => relative('', d))
     .filter(d => !(d in cachedNodeModules))
 
   nodeModules.forEach(nm => { cachedNodeModules[nm] = 1 })
   depPaths.forEach(dp => { cachedFiles[dp] = 1 })
 
+  await nodeModules.reduce(async (acc, entryPath) => {
+    await acc
+    const sa = await staticAnalysis(entryPath)
+    sa.forEach(({ entry: e, packageJson }) => {
+      if (packageJson) cachedNodeModules[packageJson] = 1
+      cachedNodeModules[e] = 1
+    })
+  }, {})
+
   await depPaths.reduce(async (acc, depPath) => {
     await acc
     await processFile(depPath, config, cache)
   }, {})
+}
+
+const addPreact = (source) => {
+  return `import { h } from 'preact'
+${source}`
+}
+
+const transpile = async (source, entry) => {
+  return await transpileJSX(source, {
+    quoteProps: 'dom',
+    warn(message) {
+      console.warn(c(message, 'yellow'))
+      console.log(entry)
+    },
+  })
 }
 
 module.exports.processFile = processFile
