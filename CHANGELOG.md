@@ -1,3 +1,9 @@
+## 2 April 2019
+
+### [1.0.3](https://github.com/dpck/bundle/compare/v1.0.2...v1.0.3)
+
+- [deps] Update dependencies.
+
 ## 2 March 2019
 
 ### 1.0.2
