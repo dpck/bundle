@@ -1,4 +1,5 @@
-import { makeTestSuite, deepEqual } from 'zoroaster'
+import { deepEqual } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import BundleTransform from '../../src/lib/BundleTransform'
 import generateTemp from '../../src'
 import TempContext from 'temp-context'

@@ -19,7 +19,7 @@ Call this function to get the result you want.
 
 %TYPEDEF types/index.xml%
 
-%EXAMPLE: example/example.js, ../src => @depack/bundle%
-%FORK example example/example%
+%EXAMPLE: example/example, ../src => @depack/bundle%
+%FORK example/example%
 
 %~%

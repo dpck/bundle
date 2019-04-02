@@ -34,10 +34,10 @@ Call this function to get the result you want.
 
 __<a name="type-config">`Config`</a>__: Options for the program.
 
-|   Name    |   Type    |    Description    | Default |
-| --------- | --------- | ----------------- | ------- |
-| shouldRun | _boolean_ | A boolean option. | `true`  |
-| __text*__ | _string_  | A text to return. | -       |
+|  Name   |   Type    |                                      Description                                       |    Default    |
+| ------- | --------- | -------------------------------------------------------------------------------------- | ------------- |
+| tempDir | _string_  | The directory in which to place temp files.                                            | `depack-temp` |
+| preact  | _boolean_ | Whether to add `import { h } from 'preact'` automatically at the top of each JSX file. | `false`       |
 
 ```js
 /* yarn example/ */
@@ -65,18 +65,14 @@ import bundle from '@depack/bundle'
         <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
       </a>
     </th>
-    <th>
-      © <a href="https://artd.eco">Art Deco</a> for <a href="https://artd.eco/depack">Depack</a>
-      2019
-    </th>
+    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://artd.eco/depack">Depack</a> 2019</th>
     <th>
       <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
+          alt="Tech Nation Visa" />
       </a>
     </th>
-    <th>
-      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
-    </th>
+    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
   </tr>
 </table>
 

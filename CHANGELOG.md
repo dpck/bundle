@@ -12,5 +12,5 @@
 
 ### 1.0.0
 
-- Create `@depack/bundle` with [`mnp`][https://mnpjs.org]
+- Create `@depack/bundle` with _[My New Package](https://mnpjs.org)_
 - [repository]: `src`, `test`
