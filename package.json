@@ -1,6 +1,6 @@
 {
   "name": "@depack/bundle",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The Source Code For The Bundle Logic To Prepare Temp Files.",
   "main": "build/index.js",
   "module": "src/index.js",
