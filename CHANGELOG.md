@@ -1,3 +1,9 @@
+## 4 April 2019
+
+### [1.0.4](https://github.com/dpck/bundle/compare/v1.0.3...v1.0.4)
+
+- [deps] Unfix dependencies.
+
 ## 2 April 2019
 
 ### [1.0.3](https://github.com/dpck/bundle/compare/v1.0.2...v1.0.3)
