@@ -1,7 +1,8 @@
 const { Replaceable } = require('restream');
-const { relative, dirname } = require('path');
+const { join, relative, dirname } = require('path');
 let resolveDependency = require('resolve-dependency'); if (resolveDependency && resolveDependency.__esModule) resolveDependency = resolveDependency.default;
 let findPackageJson = require('fpj'); if (findPackageJson && findPackageJson.__esModule) findPackageJson = findPackageJson.default;
+let split = require('@depack/split'); if (split && split.__esModule) split = split.default;
 const { checkIfLib } = require('./lib');
 
                class BundleTransform extends Replaceable {
@@ -51,7 +52,14 @@ const { checkIfLib } = require('./lib');
       const r = `${pre}'./${relativePath}'`
       return r
     }
-    const { entry } = await findPackageJson(dir, from)
+    const { name: n, paths } = split(from)
+    const { packageJson, entry } = await findPackageJson(dir, n)
+    if (paths) {
+      const d = dirname(packageJson)
+      const { path: e } = await resolveDependency(join(d, paths))
+      this.nodeModules.push(e)
+      return m
+    }
     this.nodeModules.push(entry)
     const modRel = relative(this.to, entry)
     return `${pre}'${modRel}'`

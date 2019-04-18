@@ -1,7 +1,8 @@
 import { Replaceable } from 'restream'
-import { relative, dirname } from 'path'
+import { join, relative, dirname } from 'path'
 import resolveDependency from 'resolve-dependency'
 import findPackageJson from 'fpj'
+import split from '@depack/split'
 import { checkIfLib } from './lib'
 
 export default class BundleTransform extends Replaceable {
@@ -51,7 +52,15 @@ export default class BundleTransform extends Replaceable {
       const r = `${pre}'./${relativePath}'`
       return r
     }
-    const { entry } = await findPackageJson(dir, from)
+    const { name: n, paths } = split(from)
+    const { packageJson, entry } = await findPackageJson(dir, n)
+    if (paths) {
+      const d = dirname(packageJson)
+      const { path: p } = await resolveDependency(join(d, paths))
+      this.nodeModules.push(p)
+      const relativePath = relative(this.to, p)
+      return `${pre}'${relativePath}'`
+    }
     this.nodeModules.push(entry)
     const modRel = relative(this.to, entry)
     return `${pre}'${modRel}'`
