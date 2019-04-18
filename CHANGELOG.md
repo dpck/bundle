@@ -1,3 +1,9 @@
+## 18 April 2019
+
+### [1.0.5](https://github.com/dpck/bundle/compare/v1.0.4...v1.0.5)
+
+- [fix] Process packages with paths, e.g., `preact/src/preact`.
+
 ## 4 April 2019
 
 ### [1.0.4](https://github.com/dpck/bundle/compare/v1.0.3...v1.0.4)
