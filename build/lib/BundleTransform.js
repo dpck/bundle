@@ -56,9 +56,10 @@ const { checkIfLib } = require('./lib');
     const { packageJson, entry } = await findPackageJson(dir, n)
     if (paths) {
       const d = dirname(packageJson)
-      const { path: e } = await resolveDependency(join(d, paths))
-      this.nodeModules.push(e)
-      return m
+      const { path: p } = await resolveDependency(join(d, paths))
+      this.nodeModules.push(p)
+      const relativePath = relative(this.to, p)
+      return `${pre}'${relativePath}'`
     }
     this.nodeModules.push(entry)
     const modRel = relative(this.to, entry)
