@@ -1,5 +1,9 @@
 ## 13 May 2019
 
+### [1.1.1](https://github.com/dpck/bundle/compare/v1.1.0...v1.1.1)
+
+- [fix] Use fullwidth `＠` because _GCC_ thinks that `@externs` in JSDoc is an indication of the file being an externs file.
+
 ### [1.1.0](https://github.com/dpck/bundle/compare/v1.0.5...v1.1.0)
 
 - [fix] Disable path expansions for packages (they will be analysed with static-analysis).
