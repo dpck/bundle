@@ -6,5 +6,8 @@
     <prop boolean name="preact" default="false">
       Whether to add `import { h } from 'preact'` automatically at the top of each JSX file.
     </prop>
+    <prop boolean name="preactExtern" default="false">
+      Whether to add `import { h } from '@externs/preact'` automatically at the top of each JSX file, and rename preact imports into `@externs/preact` imports. See https://www.npmjs.com/package/@externs/preact.
+    </prop>
   </type>
 </types>

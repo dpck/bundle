@@ -8,15 +8,16 @@ import BundleTransform from './BundleTransform'
 
 export const processFile = async (entry, config, cache) => {
   const { cachedNodeModules, cachedFiles } = cache
-  const { tempDir, preact } = config
+  const { tempDir, preact, preactExtern } = config
   const source = await read(entry)
   const isJSX = entry.endsWith('.jsx')
 
   const dir = relative('', dirname(entry))
   const to = join(tempDir, dir)
   const bt = new BundleTransform(entry, to)
+  bt.preactExtern = preactExtern
 
-  const T = preact && isJSX ? addPreact(source) : source
+  const T = preact && isJSX ? addPreact(source, preactExtern) : source
   bt.end(T)
   const transformed = await collect(bt)
   const transpiled = isJSX ? await transpile(transformed, entry): transformed
@@ -50,8 +51,9 @@ export const processFile = async (entry, config, cache) => {
   }, {})
 }
 
-const addPreact = (source) => {
-  return `import { h } from 'preact'
+const addPreact = (source, preactExtern) => {
+  const t = preactExtern ? '@externs/preact' : 'preact'
+  return `import { h } from '${t}'
 ${source}`
 }
 

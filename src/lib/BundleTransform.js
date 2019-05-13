@@ -53,6 +53,10 @@ export default class BundleTransform extends Replaceable {
       return r
     }
     const { name: n, paths } = split(from)
+    if (n == 'preact' && this.preactExtern) {
+      this.nodeModules.push('@externs/preact')
+      return `${pre}'@externs/preact'`
+    }
     const { packageJson, entry } = await findPackageJson(dir, n)
     if (paths) {
       const d = dirname(packageJson)

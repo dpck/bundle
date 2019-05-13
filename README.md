@@ -34,10 +34,11 @@ Call this function to get the result you want.
 
 __<a name="type-config">`Config`</a>__: Options for the program.
 
-|  Name   |   Type    |                                      Description                                       |    Default    |
-| ------- | --------- | -------------------------------------------------------------------------------------- | ------------- |
-| tempDir | _string_  | The directory in which to place temp files.                                            | `depack-temp` |
-| preact  | _boolean_ | Whether to add `import { h } from 'preact'` automatically at the top of each JSX file. | `false`       |
+|     Name     |       Type       |                                                                                                 Description                                                                                                  |    Default    |
+| ------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- |
+| tempDir      | <em>string</em>  | The directory in which to place temp files.                                                                                                                                                                  | `depack-temp` |
+| preact       | <em>boolean</em> | Whether to add `import { h } from 'preact'` automatically at the top of each JSX file.                                                                                                                       | `false`       |
+| preactExtern | <em>boolean</em> | Whether to add `import { h } from '@externs/preact'` automatically at the top of each JSX file, and rename preact imports into `@externs/preact` imports. See https://www.npmjs.com/package/@externs/preact. | `false`       |
 
 ```js
 /* yarn example/ */
