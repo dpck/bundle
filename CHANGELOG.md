@@ -4,6 +4,7 @@
 
 - [fix] Disable path expansions for packages (they will be analysed with static-analysis).
 - [feature] Allow to use `@externs/preact` by renaming `preact` import for external preact.
+- [externs] Add externs to the project.
 
 ## 18 April 2019
 
