@@ -1,4 +1,3 @@
-import { deepEqual } from '@zoroaster/assert'
 import makeTestSuite from '@zoroaster/mask'
 import BundleTransform from '../../src/lib/BundleTransform'
 import generateTemp from '../../src'
@@ -17,15 +16,9 @@ export const GenerateTemp = makeTestSuite('test/result/generate-temp.jsx', {
    * @param {TempContext} tc
    */
   async getResults({ TEMP, snapshot }) {
-    const list = await generateTemp(this.input, {
+    await generateTemp(this.input, {
       tempDir: TEMP,
     })
-    const s = await snapshot()
-    return { list, snapshot: s }
+    return await snapshot()
   },
-  mapActual({ snapshot }) { return snapshot },
-  assertResults({ list }, { expectedList }) {
-    deepEqual(list, expectedList)
-  },
-  jsonProps: ['expectedList'],
 })
