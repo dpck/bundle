@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "doc": "NODE_DEBUG=doc doc -o README.md",
     "b": "alamode src -o build -s -i lib/process-nm.js",
-    "d": "yarn-s d1",
+    "d": "yarn-s d1 d2",
     "d1": "typal src/index.js -c",
     "d2": "typal types/externs.js",
     "build": "yarn-s d b doc",

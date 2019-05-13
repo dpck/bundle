@@ -11,7 +11,7 @@ export default class BundleTransform extends Replaceable {
    * @param {string} to Where the file will be saved.
    */
   constructor(path, to) {
-    super()
+    super([])
     const replacement = this.replacement.bind(this)
     this.rules = [
       {
@@ -27,6 +27,7 @@ export default class BundleTransform extends Replaceable {
     this._deps = []
     this.path = path
     this.to = to
+    this.preactExtern = false
   }
   /**
    * The paths to node_modules in the file.
@@ -52,7 +53,7 @@ export default class BundleTransform extends Replaceable {
       const r = `${pre}'./${relativePath}'`
       return r
     }
-    const { name: n, paths } = split(from)
+    const { name: n } = split(from)
     if (n == 'preact' && this.preactExtern) {
       const { entry } = await findPackageJson(dir, '@externs/preact')
       this.nodeModules.push(entry)
@@ -60,16 +61,16 @@ export default class BundleTransform extends Replaceable {
     }
     return m
     // this is not really doing anything
-    const { packageJson, entry } = await findPackageJson(dir, n)
-    if (paths) {
-      const d = dirname(packageJson)
-      const { path: p } = await resolveDependency(join(d, paths))
-      this.nodeModules.push(p)
-      const relativePath = relative(this.to, p)
-      return `${pre}'${relativePath}'`
-    }
-    this.nodeModules.push(entry)
-    const modRel = relative(this.to, entry)
-    return `${pre}'${modRel}'`
+    // const { packageJson, entry } = await findPackageJson(dir, n)
+    // if (paths) {
+    //   const d = dirname(packageJson)
+    //   const { path: p } = await resolveDependency(join(d, paths))
+    //   this.nodeModules.push(p)
+    //   const relativePath = relative(this.to, p)
+    //   return `${pre}'${relativePath}'`
+    // }
+    // this.nodeModules.push(entry)
+    // const modRel = relative(this.to, entry)
+    // return `${pre}'${modRel}'`
   }
 }
