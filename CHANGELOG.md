@@ -1,3 +1,10 @@
+## 13 May 2019
+
+### [1.1.0](https://github.com/dpck/bundle/compare/v1.0.5...v1.1.0)
+
+- [fix] Disable path expansions for packages (they will be analysed with static-analysis).
+- [feature] Allow to use `@externs/preact` by renaming `preact` import for external preact.
+
 ## 18 April 2019
 
 ### [1.0.5](https://github.com/dpck/bundle/compare/v1.0.4...v1.0.5)
