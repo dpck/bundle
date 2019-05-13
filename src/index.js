@@ -7,7 +7,7 @@ import { join, relative } from 'path'
  * @param {_depack.TempConfig} [config] Options for generating the temp directory.
  * @param {string} [config.tempDir="depack-temp"] The directory in which to place temp files. Default `depack-temp`.
  * @param {boolean} [config.preact=false] Whether to add `import { h } from 'preact'` automatically at the top of each JSX file. Default `false`.
- * @param {boolean} [config.preactExtern=false] Whether to add `import { h } from '@externs/preact'` automatically at the top of each JSX file, and rename preact imports into `@externs/preact` imports. See https://www.npmjs.com/package/@externs/preact. Default `false`.
+ * @param {boolean} [config.preactExtern=false] Whether to add `import { h } from '＠externs/preact'` automatically at the top of each JSX file, and rename preact imports into `＠externs/preact` imports. See https://www.npmjs.com/package/＠externs/preact. Default `false`.
  */
 const generateTemp = async (entry, config = {}) => {
   const {
@@ -41,5 +41,5 @@ export default generateTemp
  * @typedef {Object} _depack.TempConfig Options for generating the temp directory.
  * @prop {string} [tempDir="depack-temp"] The directory in which to place temp files. Default `depack-temp`.
  * @prop {boolean} [preact=false] Whether to add `import { h } from 'preact'` automatically at the top of each JSX file. Default `false`.
- * @prop {boolean} [preactExtern=false] Whether to add `import { h } from '@externs/preact'` automatically at the top of each JSX file, and rename preact imports into `@externs/preact` imports. See https://www.npmjs.com/package/@externs/preact. Default `false`.
+ * @prop {boolean} [preactExtern=false] Whether to add `import { h } from '＠externs/preact'` automatically at the top of each JSX file, and rename preact imports into `＠externs/preact` imports. See https://www.npmjs.com/package/＠externs/preact. Default `false`.
  */

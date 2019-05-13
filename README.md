@@ -38,7 +38,7 @@ __<a name="type-_depacktempconfig">`_depack.TempConfig`</a>__: Options for gener
 | ------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- |
 | tempDir      | <em>string</em>  | The directory in which to place temp files.                                                                                                                                                                  | `depack-temp` |
 | preact       | <em>boolean</em> | Whether to add `import { h } from 'preact'` automatically at the top of each JSX file.                                                                                                                       | `false`       |
-| preactExtern | <em>boolean</em> | Whether to add `import { h } from '@externs/preact'` automatically at the top of each JSX file, and rename preact imports into `@externs/preact` imports. See https://www.npmjs.com/package/@externs/preact. | `false`       |
+| preactExtern | <em>boolean</em> | Whether to add `import { h } from '＠externs/preact'` automatically at the top of each JSX file, and rename preact imports into `＠externs/preact` imports. See https://www.npmjs.com/package/＠externs/preact. | `false`       |
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 

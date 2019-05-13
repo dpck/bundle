@@ -26,6 +26,7 @@
     "src",
     "types/externs.js"
   ],
+  "externs": "types/externs.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/dpck/bundle.git"
