@@ -1,5 +1,5 @@
-<types>
-  <type name="Config" desc="Options for the program.">
+<types ns="_depack">
+  <type name="TempConfig" desc="Options for generating the temp directory.">
     <prop string name="tempDir" default="depack-temp">
       The directory in which to place temp files.
     </prop>

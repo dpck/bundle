@@ -3,23 +3,23 @@
 The package is available by importing its default function:
 
 ```js
-import bundle from '@depack/bundle'
+import generateTemp from '@depack/bundle'
 ```
 
 %~%
 
-```## bundle
+```## async generateTemp
 [
-  ["arg1", "string"],
-  ["arg2?", "boolean"]
+  ["entry", "string"],
+  ["config?", "TempConfig"]
 ]
 ```
 
-Call this function to get the result you want.
+Generates a temp directory for the given entry file and transpiles JSX files that are references in it.
 
 %TYPEDEF types/index.xml%
 
-%EXAMPLE: example/example, ../src => @depack/bundle%
-%FORK example/example%
+<!-- %EXAMPLE: example/example, ../src => @depack/bundle%
+%FORK example/example% -->
 
 %~%

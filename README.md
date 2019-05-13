@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/%40depack%2Fbundle.svg)](https://npmjs.org/package/@depack/bundle)
 
-`@depack/bundle` is The Source Code For The Bundle Logic To Prepare Temp Files.
+`@depack/bundle` is The Source Code For The Bundle Logic To Prepare Temp Files. Because Google Closure Compiler cannot import _JSX_ files, we create a temp directory to put them in there, and also allow to update `preact` to `@externs/preact` in the temp as well, so that _Preact_ can be referenced separately from the compiled code.
 
 ```sh
 yarn add -E @depack/bundle
@@ -12,8 +12,8 @@ yarn add -E @depack/bundle
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`bundle(arg1: string, arg2?: boolean)`](#bundlearg1-stringarg2-boolean-void)
-  * [`Config`](#type-config)
+- [`async generateTemp(entry: string, config?: TempConfig)`](#async-generatetempentry-stringconfig-tempconfig-void)
+  * [`_depack.TempConfig`](#type-_depacktempconfig)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -23,37 +23,22 @@ yarn add -E @depack/bundle
 The package is available by importing its default function:
 
 ```js
-import bundle from '@depack/bundle'
+import generateTemp from '@depack/bundle'
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
-## `bundle(`<br/>&nbsp;&nbsp;`arg1: string,`<br/>&nbsp;&nbsp;`arg2?: boolean,`<br/>`): void`
+## `async generateTemp(`<br/>&nbsp;&nbsp;`entry: string,`<br/>&nbsp;&nbsp;`config?: TempConfig,`<br/>`): void`
 
-Call this function to get the result you want.
+Generates a temp directory for the given entry file and transpiles JSX files that are references in it.
 
-__<a name="type-config">`Config`</a>__: Options for the program.
+__<a name="type-_depacktempconfig">`_depack.TempConfig`</a>__: Options for generating the temp directory.
 
 |     Name     |       Type       |                                                                                                 Description                                                                                                  |    Default    |
 | ------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- |
 | tempDir      | <em>string</em>  | The directory in which to place temp files.                                                                                                                                                                  | `depack-temp` |
 | preact       | <em>boolean</em> | Whether to add `import { h } from 'preact'` automatically at the top of each JSX file.                                                                                                                       | `false`       |
 | preactExtern | <em>boolean</em> | Whether to add `import { h } from '@externs/preact'` automatically at the top of each JSX file, and rename preact imports into `@externs/preact` imports. See https://www.npmjs.com/package/@externs/preact. | `false`       |
-
-```js
-/* yarn example/ */
-import bundle from '@depack/bundle'
-
-(async () => {
-  const res = await bundle({
-    text: 'example',
-  })
-  console.log(res)
-})()
-```
-```
-
-```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
