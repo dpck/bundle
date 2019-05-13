@@ -4,7 +4,7 @@ test/fixture/index.jsx
 /* expected */
 # test/fixture/index.jsx
 
-import { render } from '../../../../node_modules/preact/dist/preact.mjs'
+import { render } from 'preact'
 const App = ({ test }) =>  h('div',{},test)
 render(h(App,{test:"OK"}), document.body)
 /**/
@@ -22,8 +22,8 @@ test/fixture/dep.jsx
 /* expected */
 # test/fixture/dep.jsx
 
-import { render } from '../../../../node_modules/preact/dist/preact.mjs'
-import { Test } from '../../../../node_modules/@idio/preact-fixture/src/index.js'
+import { render } from 'preact'
+import { Test } from '@idio/preact-fixture'
 const App = ({ test }) =>   h('div',{},
   h(Test,{},test),
 )
@@ -46,9 +46,9 @@ test/fixture/nested.jsx
 /* expected */
 # test/fixture/nested.jsx
 
-import { render } from '../../../../node_modules/preact/dist/preact.mjs'
-import { Test } from '../../../../node_modules/@idio/preact-fixture/src/index.js'
-import Fixture, { Component3 } from '../../../../node_modules/@depack/fixture/build/index.js'
+import { render } from 'preact'
+import { Test } from '@idio/preact-fixture'
+import Fixture, { Component3 } from '@depack/fixture'
 const App = ({ test }) =>          h('div',{},
   h(Component3,{},
     h(Test,{},test),

@@ -17,7 +17,7 @@ export const processFile = async (entry, config, cache) => {
   const bt = new BundleTransform(entry, to)
   bt.preactExtern = preactExtern
 
-  const T = preact && isJSX ? addPreact(source, preactExtern) : source
+  const T = (preact || preactExtern) && isJSX ? addPreact(source, preactExtern) : source
   bt.end(T)
   const transformed = await collect(bt)
   const transpiled = isJSX ? await transpile(transformed, entry): transformed

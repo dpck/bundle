@@ -53,6 +53,13 @@ const { checkIfLib } = require('./lib');
       return r
     }
     const { name: n, paths } = split(from)
+    if (n == 'preact' && this.preactExtern) {
+      const { entry } = await findPackageJson(dir, '@externs/preact')
+      this.nodeModules.push(entry)
+      return `${pre}'@externs/preact'`
+    }
+    return m
+    // this is not really doing anything
     const { packageJson, entry } = await findPackageJson(dir, n)
     if (paths) {
       const d = dirname(packageJson)

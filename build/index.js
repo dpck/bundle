@@ -7,11 +7,13 @@ const { join, relative } = require('path');
  * @param {Config} [config] Options for the program.
  * @param {string} [config.tempDir="depack-temp"] The directory in which to place temp files. Default `depack-temp`.
  * @param {boolean} [config.preact=false] Whether to add `import { h } from 'preact'` automatically at the top of each JSX file. Default `false`.
+ * @param {boolean} [config.preactExtern=false] Whether to add `import { h } from '@externs/preact'` automatically at the top of each JSX file, and rename preact imports into `@externs/preact` imports. See https://www.npmjs.com/package/@externs/preact. Default `false`.
  */
 const generateTemp = async (entry, config = {}) => {
   const {
     tempDir = 'depack-temp',
     preact,
+    preactExtern,
   } = config
   const cache = {
     cachedFiles: {
@@ -20,7 +22,7 @@ const generateTemp = async (entry, config = {}) => {
     cachedNodeModules: {},
   }
   await processFile(entry, {
-    tempDir, preact,
+    tempDir, preact, preactExtern,
   }, cache)
   const tempFiles = Object.keys(cache.cachedFiles)
     .map(f => join(tempDir, f))
@@ -31,7 +33,9 @@ module.exports=generateTemp
 
 /* documentary types/index.xml */
 /**
+ * @suppress {nonStandardJsDocs}
  * @typedef {Object} Config Options for the program.
  * @prop {string} [tempDir="depack-temp"] The directory in which to place temp files. Default `depack-temp`.
  * @prop {boolean} [preact=false] Whether to add `import { h } from 'preact'` automatically at the top of each JSX file. Default `false`.
+ * @prop {boolean} [preactExtern=false] Whether to add `import { h } from '@externs/preact'` automatically at the top of each JSX file, and rename preact imports into `@externs/preact` imports. See https://www.npmjs.com/package/@externs/preact. Default `false`.
  */
