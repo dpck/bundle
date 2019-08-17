@@ -1,3 +1,9 @@
+## 17 August 2019
+
+### [1.2.0](https://github.com/dpck/bundle/compare/v1.1.1...v1.2.0)
+
+- [feature] Generate JavaScript from CSS files calling `depack/inject-css`.
+
 ## 13 May 2019
 
 ### [1.1.1](https://github.com/dpck/bundle/compare/v1.1.0...v1.1.1)
