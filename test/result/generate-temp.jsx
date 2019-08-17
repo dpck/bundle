@@ -40,3 +40,20 @@ const App = ({ test }) =>          h('div',{},
 )
 render(h(App,{test:"OK"}), document.body)
 /**/
+
+// updates css files
+test/fixture/css.jsx
+
+/* expected */
+# test/fixture/css.jsx
+
+import './style.css'
+
+# test/fixture/style.css.js
+
+import injectStyle from 'depack/inject-css'
+
+injectStyle(`body {
+  background: green;
+}`)
+/**/

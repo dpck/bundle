@@ -19,11 +19,16 @@ export default class BundleTransform extends Replaceable {
         replacement,
       },
       {
+        re: /^( *import\s+['"](.+)['"])/gm,
+        replacement,
+      },
+      {
         re: /^( *export\s+{[^}]+?}\s+from\s+)['"](.+?)['"]/gm,
         replacement,
       },
     ]
     this._nodeModules = []
+    this.css = []
     this._deps = []
     this.path = path
     this.to = to
@@ -46,6 +51,10 @@ export default class BundleTransform extends Replaceable {
    */
   async replacement(m, pre, from) {
     const dir = dirname(this.path)
+    if (from.endsWith('.css')) {
+      this.css.push(from)
+      return m
+    }
     if (checkIfLib(from)) {
       const { path } = await resolveDependency(from, this.path)
       const relativePath = relative(dir, path)

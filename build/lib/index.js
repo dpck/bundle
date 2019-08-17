@@ -1,12 +1,12 @@
 const { dirname, join, relative } = require('path');
 const { read, write, ensurePath } = require('@wrote/wrote');
-let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esModule) transpileJSX = transpileJSX.default;
+const transpileJSX = require('@a-la/jsx');
 const { collect } = require('catchment');
 const { c } = require('erte');
-let staticAnalysis = require('static-analysis'); if (staticAnalysis && staticAnalysis.__esModule) staticAnalysis = staticAnalysis.default;
+const staticAnalysis = require('static-analysis');
 const BundleTransform = require('./BundleTransform');
 
-       const processFile = async (entry, config, cache) => {
+const processFile = async (entry, config, cache) => {
   const { cachedNodeModules, cachedFiles } = cache
   const { tempDir, preact, preactExtern } = config
   const source = await read(entry)
@@ -43,6 +43,17 @@ const BundleTransform = require('./BundleTransform');
       if (packageJson) cachedNodeModules[packageJson] = 1
       cachedNodeModules[e] = 1
     })
+  }, {})
+
+  await bt.css.reduce(async (acc, css) => {
+    await acc
+    const path = join(dir, css)
+    const file = await read(path)
+    const text = `import injectStyle from 'depack/inject-css'
+
+injectStyle(\`${file}\`)`
+    const cssTo = join(to, `${css}.js`)
+    await write(cssTo, text)
   }, {})
 
   await depPaths.reduce(async (acc, depPath) => {

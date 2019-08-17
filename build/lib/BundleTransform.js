@@ -1,11 +1,11 @@
 const { Replaceable } = require('restream');
 const { join, relative, dirname } = require('path');
-let resolveDependency = require('resolve-dependency'); if (resolveDependency && resolveDependency.__esModule) resolveDependency = resolveDependency.default;
-let findPackageJson = require('fpj'); if (findPackageJson && findPackageJson.__esModule) findPackageJson = findPackageJson.default;
-let split = require('@depack/split'); if (split && split.__esModule) split = split.default;
+const resolveDependency = require('resolve-dependency');
+const findPackageJson = require('fpj');
+const split = require('@depack/split');
 const { checkIfLib } = require('./lib');
 
-               class BundleTransform extends Replaceable {
+class BundleTransform extends Replaceable {
   /**
    * @param {string} path Path to the file.
    * @param {string} to Where the file will be saved.
@@ -19,11 +19,16 @@ const { checkIfLib } = require('./lib');
         replacement,
       },
       {
+        re: /^( *import\s+['"](.+)['"])/gm,
+        replacement,
+      },
+      {
         re: /^( *export\s+{[^}]+?}\s+from\s+)['"](.+?)['"]/gm,
         replacement,
       },
     ]
     this._nodeModules = []
+    this.css = []
     this._deps = []
     this.path = path
     this.to = to
@@ -46,6 +51,10 @@ const { checkIfLib } = require('./lib');
    */
   async replacement(m, pre, from) {
     const dir = dirname(this.path)
+    if (from.endsWith('.css')) {
+      this.css.push(from)
+      return m
+    }
     if (checkIfLib(from)) {
       const { path } = await resolveDependency(from, this.path)
       const relativePath = relative(dir, path)

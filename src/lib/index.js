@@ -45,6 +45,17 @@ export const processFile = async (entry, config, cache) => {
     })
   }, {})
 
+  await bt.css.reduce(async (acc, css) => {
+    await acc
+    const path = join(dir, css)
+    const file = await read(path)
+    const text = `import injectStyle from 'depack/inject-css'
+
+injectStyle(\`${file}\`)`
+    const cssTo = join(to, `${css}.js`)
+    await write(cssTo, text)
+  }, {})
+
   await depPaths.reduce(async (acc, depPath) => {
     await acc
     await processFile(depPath, config, cache)
