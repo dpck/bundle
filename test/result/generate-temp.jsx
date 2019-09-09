@@ -57,3 +57,17 @@ injectStyle(`body {
   background: green;
 }`)
 /**/
+
+// transforms anon imports
+test/fixture/anon.jsx
+
+/* expected */
+# test/fixture/anon.jsx
+
+import './test.jsx'
+import "./test.jsx"
+
+# test/fixture/test.jsx
+
+console.log('hello world jsx')
+/**/

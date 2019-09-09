@@ -59,6 +59,7 @@ class BundleTransform extends Replaceable {
       const { path } = await resolveDependency(from, this.path)
       const relativePath = relative(dir, path)
       this.deps.push(relativePath)
+      if (m == pre) return pre.replace(/(['"]).+\1/, `$1./${relativePath}$1`)
       const r = `${pre}'./${relativePath}'`
       return r
     }
