@@ -1,5 +1,5 @@
 const { Replaceable } = require('restream');
-const { join, relative, dirname } = require('path');
+const { relative, dirname } = require('path');
 const resolveDependency = require('resolve-dependency');
 const findPackageJson = require('fpj');
 const split = require('@depack/split');
@@ -59,7 +59,7 @@ class BundleTransform extends Replaceable {
       const { path } = await resolveDependency(from, this.path)
       const relativePath = relative(dir, path)
       this.deps.push(relativePath)
-      if (m == pre) return pre.replace(/(['"]).+\1/, `$1./${relativePath}$1`)
+      if (m == pre) return pre.replace(/(['"]).+\1/, `$1${relativePath.startsWith('.') ? '' : './'}${relativePath}$1`)
       const r = `${pre}'./${relativePath}'`
       return r
     }
