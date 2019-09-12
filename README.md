@@ -13,7 +13,7 @@ yarn add @depack/bundle
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
 - [`async generateTemp(entry: string, config?: TempConfig)`](#async-generatetempentry-stringconfig-tempconfig-void)
-  * [`_depack.TempConfig`](#type-_depacktempconfig)
+  * [`TempConfig`](#type-tempconfig)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents">
@@ -36,7 +36,7 @@ import generateTemp from '@depack/bundle'
 
 Generates a temp directory for the given entry file and transpiles JSX files that are references in it.
 
-<strong><a name="type-_depacktempconfig">`_depack.TempConfig`</a></strong>: Options for generating the temp directory.
+__<a name="type-tempconfig">`TempConfig`</a>__: Options for generating the temp directory.
 
 |     Name     |       Type       |                                                                                                 Description                                                                                                  |    Default    |
 | ------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- |
