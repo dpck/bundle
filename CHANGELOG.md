@@ -1,3 +1,9 @@
+## 12 September 2019
+
+### [1.3.0](https://github.com/dpck/bundle/compare/v1.2.0...v1.3.0)
+
+- [feature] Process anonymous _JS/JSX_ imports.
+
 ## 17 August 2019
 
 ### [1.2.0](https://github.com/dpck/bundle/compare/v1.1.1...v1.2.0)
