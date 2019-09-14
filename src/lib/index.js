@@ -55,14 +55,12 @@ export const processFile = async (entry, config, cache) => {
   nodeModules.forEach(nm => { cachedNodeModules[nm] = 1 })
   depPaths.forEach(dp => { cachedFiles[dp] = 1 })
 
-  await nodeModules.reduce(async (acc, entryPath) => {
-    await acc
-    const sa = await staticAnalysis(entryPath)
-    sa.forEach(({ entry: e, packageJson }) => {
-      if (packageJson) cachedNodeModules[packageJson] = 1
-      cachedNodeModules[e] = 1
-    })
-  }, {})
+  // add node modules
+  const sa = await staticAnalysis(nodeModules)
+  sa.forEach(({ entry: e, packageJson }) => {
+    if (packageJson) cachedNodeModules[packageJson] = 1
+    cachedNodeModules[e] = 1
+  })
 
   await bt.css.reduce(async (acc, css) => {
     await acc

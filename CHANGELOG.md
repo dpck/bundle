@@ -1,5 +1,10 @@
 ## 14 September 2019
 
+### [1.4.1](https://github.com/dpck/bundle/compare/v1.4.0...v1.4.1)
+
+- [deps] Update _static-analysis_ for multiple entries detection.
+- [feature] Process all `node_modules` at once.
+
 ### [1.4.0](https://github.com/dpck/bundle/compare/v1.3.1...v1.4.0)
 
 - [feature] Handle linked packages.
