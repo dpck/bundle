@@ -4,6 +4,6 @@
 
 ## Copyright
 
-<DepackFooter/>
+<depack-footer/>
 
 %~ -1%
