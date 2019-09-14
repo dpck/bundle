@@ -71,3 +71,23 @@ import "./test.jsx"
 
 console.log('hello world jsx')
 /**/
+
+// linked paths
+test/fixture/linked.jsx
+
+/* expected */
+# node_modules/@depack/bundle-link/src/index.js
+
+import lib from './lib'
+/* Source code of a linked package ../bundle-link */
+
+
+# node_modules/@depack/bundle-link/src/lib.js
+
+console.log('lib.js')
+
+
+# test/fixture/linked.jsx
+
+import '../../node_modules/@depack/bundle-link/src'
+/**/

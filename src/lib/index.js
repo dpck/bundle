@@ -1,4 +1,4 @@
-import { dirname, join, relative } from 'path'
+import { dirname, join, relative, resolve } from 'path'
 import { read, write, ensurePath } from '@wrote/wrote'
 import transpileJSX from '@a-la/jsx'
 import { collect } from 'catchment'
@@ -6,6 +6,9 @@ import { c } from 'erte'
 import staticAnalysis from 'static-analysis'
 import BundleTransform from './BundleTransform'
 
+/**
+ * @param {string} entry The path to the file file.
+ */
 export const processFile = async (entry, config, cache) => {
   const { cachedNodeModules, cachedFiles } = cache
   const { tempDir, preact, preactExtern } = config
@@ -21,6 +24,22 @@ export const processFile = async (entry, config, cache) => {
   bt.end(T)
   const transformed = await collect(bt)
   const transpiled = isJSX ? await transpile(transformed, entry): transformed
+  if (entry.startsWith('..')) {
+    // possibly linked package
+    let found
+    let p = entry
+    while (p != '.' && !found) {
+      p = dirname(p)
+      try {
+        const r = require(resolve(p, 'package.json'))
+        const rest = entry.replace(p, '')
+        found = join('node_modules', r['name'], rest)
+      } catch (err) {
+      /**/}
+    }
+    if (!found) console.warn('Entry path %s is above CWD and linked package is not found. The temp file will be generated in %s', entry, join(tempDir, entry))
+    else entry = found
+  }
   const tto = join(tempDir, entry)
   await ensurePath(tto)
 

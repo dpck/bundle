@@ -1,4 +1,4 @@
-const { dirname, join, relative } = require('path');
+const { dirname, join, relative, resolve } = require('path');
 const { read, write, ensurePath } = require('@wrote/wrote');
 const transpileJSX = require('@a-la/jsx');
 const { collect } = require('catchment');
@@ -6,6 +6,9 @@ const { c } = require('erte');
 const staticAnalysis = require('static-analysis');
 const BundleTransform = require('./BundleTransform');
 
+/**
+ * @param {string} entry The path to the file file.
+ */
 const processFile = async (entry, config, cache) => {
   const { cachedNodeModules, cachedFiles } = cache
   const { tempDir, preact, preactExtern } = config
@@ -21,6 +24,22 @@ const processFile = async (entry, config, cache) => {
   bt.end(T)
   const transformed = await collect(bt)
   const transpiled = isJSX ? await transpile(transformed, entry): transformed
+  if (entry.startsWith('..')) {
+    // possibly linked package
+    let found
+    let p = entry
+    while (p != '.' && !found) {
+      p = dirname(p)
+      try {
+        const r = require(resolve(p, 'package.json'))
+        const rest = entry.replace(p, '')
+        found = join('node_modules', r['name'], rest)
+      } catch (err) {
+      /**/}
+    }
+    if (!found) console.warn('Entry path %s is above CWD and linked package is not found. The temp file will be generated in %s', entry, join(tempDir, entry))
+    else entry = found
+  }
   const tto = join(tempDir, entry)
   await ensurePath(tto)
 

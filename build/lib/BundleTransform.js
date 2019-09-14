@@ -1,9 +1,9 @@
 const { Replaceable } = require('restream');
-const { relative, dirname } = require('path');
+const { relative, dirname, join } = require('path');
 const resolveDependency = require('resolve-dependency');
 const findPackageJson = require('fpj');
 const split = require('@depack/split');
-const { checkIfLib } = require('./lib');
+const { checkIfLib, findPackage } = require('./lib');
 
 class BundleTransform extends Replaceable {
   /**
@@ -57,10 +57,22 @@ class BundleTransform extends Replaceable {
     }
     if (checkIfLib(from)) {
       const { path } = await resolveDependency(from, this.path)
-      const relativePath = relative(dir, path)
+
+      let relativePath = relative(dir, path)
+
+      if (path.startsWith('..')) {
+        const foundLinked = findPackage(path)
+        if (foundLinked) {
+          const p = join('node_modules', foundLinked)
+          relativePath = relative(dir, p)
+        }
+      }
       this.deps.push(relativePath)
-      if (m == pre) return pre.replace(/(['"]).+\1/, `$1${relativePath.startsWith('.') ? '' : './'}${relativePath}$1`)
-      const r = `${pre}'./${relativePath}'`
+
+      const dot = relativePath.startsWith('.') ? '' : './'
+
+      if (m == pre) return pre.replace(/(['"]).+\1/, `$1${dot}${replace(relativePath)}$1`)
+      const r = `${pre}'${dot}${replace(relativePath)}'`
       return r
     }
     const { name: n } = split(from)
@@ -83,6 +95,10 @@ class BundleTransform extends Replaceable {
     // const modRel = relative(this.to, entry)
     // return `${pre}'${modRel}'`
   }
+}
+
+const replace = (string) => {
+  return string.replace(/(\/index)?\.js$/, '')
 }
 
 module.exports = BundleTransform
